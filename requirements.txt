@@ -1,0 +1,14 @@
+openai~=1.59.7
+logger~=1.4
+python-dotenv~=1.0.1
+requests~=2.32.3
+faiss-cpu
+numpy<2.0
+pandas
+beautifulsoup4~=4.12.3
+openai-whisper
+torch
+sounddevice
+elevenlabs
+chroma
+chromadb

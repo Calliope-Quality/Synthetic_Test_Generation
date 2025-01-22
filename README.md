@@ -1,60 +1,64 @@
+# RAG-Powered Test Case Generation
 
-RAG-Powered Test Case Generation
-
-Overview
+## Overview
 
 RAG-Powered Test Case Generation is a sophisticated tool designed to streamline the creation of realistic and effective test cases from user stories. By leveraging Retrieval-Augmented Generation (RAG), this project enhances user stories with historical test case data from TestRail, ensuring that the generated test cases are both relevant and comprehensive. Additionally, the integration with ElevenLabs facilitates a natural, voice-activated interaction, making the process more intuitive and efficient.
 
-Why RAG Matters
+## Why RAG Matters
 
 Retrieval-Augmented Generation (RAG) is at the core of this project, playing a crucial role in transforming raw user stories into actionable test cases. Here’s why RAG is indispensable:
-	•	Contextual Enrichment: RAG integrates current user stories with historical test case data, providing a richer context for AI-driven test case generation.
-	•	Relevance and Precision: By accessing a repository of past test cases, RAG ensures that the generated tests align with established testing patterns and real-world scenarios.
-	•	Efficiency: Automating test case generation accelerates the testing process, allowing QA teams to focus on refining and expanding the initial outputs rather than creating them from scratch.
 
-Project Highlights
+- **Contextual Enrichment**: RAG integrates current user stories with historical test case data, providing a richer context for AI-driven test case generation.
+- **Relevance and Precision**: By accessing a repository of past test cases, RAG ensures that the generated tests align with established testing patterns and real-world scenarios.
+- **Efficiency**: Automating test case generation accelerates the testing process, allowing QA teams to focus on refining and expanding the initial outputs rather than creating them from scratch.
+
+## Project Highlights
 
 RAG-Powered Test Case Generation stands out due to its thoughtful architecture and robust functionality:
-	•	Seamless Azure DevOps Integration: Directly fetches user stories from Azure DevOps (ADO), ensuring that the test cases are grounded in the latest project requirements.
-	•	Flexible Database Options: Offers two powerful pathways for managing the RAG database:
-	•	FAISS: Ideal for smaller datasets, FAISS provides efficient vector similarity search capabilities.
-	•	ChromaDB: Suited for larger volumes of data, ChromaDB ensures scalability and performance.
-	•	Voice Activation with ElevenLabs: Utilizes ElevenLabs for voice activation, enabling a more natural and hands-free interaction with the system.
-	•	AI-Driven Test Case Synthesis: Employs OpenAI’s advanced models to generate up to 10 concise and relevant test cases per user story, covering both positive and negative scenarios.
-	•	Comprehensive Logging and Reporting: Maintains detailed logs of all operations, facilitating easy troubleshooting and audit trails.
 
-RAG Database Paths: FAISS vs. ChromaDB
+- **Seamless Azure DevOps Integration**: Directly fetches user stories from Azure DevOps (ADO), ensuring that the test cases are grounded in the latest project requirements.
+- **Flexible Database Options**: Offers two powerful pathways for managing the RAG database:
+  - **FAISS**: Ideal for smaller datasets, FAISS provides efficient vector similarity search capabilities.
+  - **ChromaDB**: Suited for larger volumes of data, ChromaDB ensures scalability and performance.
+- **Voice Activation with ElevenLabs**: Utilizes ElevenLabs for voice activation, enabling a more natural and hands-free interaction with the system.
+- **AI-Driven Test Case Synthesis**: Employs OpenAI’s advanced models to generate up to 10 concise and relevant test cases per user story, covering both positive and negative scenarios.
+- **Comprehensive Logging and Reporting**: Maintains detailed logs of all operations, facilitating easy troubleshooting and audit trails.
+
+## RAG Database Paths: FAISS vs. ChromaDB
 
 Understanding the database options is essential for optimizing the performance of your test case generation workflow:
 
-FAISS (Facebook AI Similarity Search)
-	•	Best For: Small to medium-sized datasets.
-	•	Advantages:
-	•	High-speed vector similarity searches.
-	•	Easy to set up and integrate.
-	•	Considerations:
-	•	May not scale as efficiently with extremely large datasets compared to ChromaDB.
+### FAISS (Facebook AI Similarity Search)
 
-ChromaDB
-	•	Best For: Large-scale datasets requiring robust scalability.
-	•	Advantages:
-	•	Designed for handling vast amounts of data with ease.
-	•	Offers enhanced performance for large-scale vector searches.
-	•	Considerations:
-	•	Slightly more complex setup compared to FAISS.
+- **Best For**: Small to medium-sized datasets.
+- **Advantages**:
+  - High-speed vector similarity searches.
+  - Easy to set up and integrate.
+- **Considerations**:
+  - May not scale as efficiently with extremely large datasets compared to ChromaDB.
 
-Note: Users can choose either FAISS or ChromaDB based on their dataset size and performance requirements. Ensure that the appropriate code path is selected to match the chosen database.
+### ChromaDB
 
-Data Import Paths: JSON vs. CSV
+- **Best For**: Large-scale datasets requiring robust scalability.
+- **Advantages**:
+  - Designed for handling vast amounts of data with ease.
+  - Offers enhanced performance for large-scale vector searches.
+- **Considerations**:
+  - Slightly more complex setup compared to FAISS.
+
+**Note**: Users can choose either FAISS or ChromaDB based on their dataset size and performance requirements. Ensure that the appropriate code path is selected to match the chosen database.
+
+## Data Import Paths: JSON vs. CSV
 
 The project provides flexible methods for importing historical test case data from TestRail:
 
-JSON Import (json_to_vector.py)
-	•	Purpose: Extracts test case data from a JSON export from TestRail and inserts it into the ChromaDB vector database.
-	•	Usage:
+### JSON Import (`json_to_vector.py`)
 
-python json_to_vector.py
+- **Purpose**: Extracts test case data from a JSON export from TestRail and inserts it into the ChromaDB vector database.
+- **Usage**:
 
+  ```bash
+  python json_to_vector.py
 
 	•	Process:
 	1.	Extract Data: Parses the cases.json file exported from TestRail.
@@ -114,67 +118,83 @@ OPENAI_API_KEY=your_openai_api_key
 ELEVENLABS_API_KEY=your_elevenlabs_api_key
 DEBUG=True  # Set to False in production
 
-Ensure you replace the placeholders with your actual credentials.
+Apologies for the cutoff! Here’s the continuation and conclusion of the Getting Started section, along with the File Structure addition you requested.
+
+2. Configure Environment Variables (continued)
+
+Ensure you replace the placeholders with your actual credentials:
+
+ADO_USERNAME=your_ado_username
+ADO_PAT=your_ado_personal_access_token
+OPENAI_API_KEY=your_openai_api_key
+ELEVENLABS_API_KEY=your_elevenlabs_api_key
+DEBUG=True  # Set to False in production
 
 3. Import Historical Test Cases
 
-Choose your preferred database and run the appropriate import script:
-
-Using JSON with ChromaDB
-	1.	Export Test Cases from TestRail:
-	•	Export your test cases from TestRail in JSON format and save them as cases.json in the project directory.
-	2.	Run JSON to Vector Import:
+To build the RAG database, use json_to_vector.py for JSON files exported from TestRail:
 
 python json_to_vector.py
 
-This script will:
-	•	Parse the cases.json file.
-	•	Generate embeddings using OpenAI’s embedding models.
-	•	Insert the embeddings and associated metadata into the ChromaDB collection named testrail_test_cases.
+This script:
+	•	Parses the cases.json file.
+	•	Generates embeddings using OpenAI models.
+	•	Stores the data in ChromaDB for efficient retrieval.
 
-Using CSV Import (Optional)
-	1.	Prepare CSV File:
-	•	Ensure your CSV file contains the necessary fields such as title, description, steps, expected_outcome, etc.
-	2.	Modify json_to_vector.py for CSV:
-	•	Update the data extraction section in json_to_vector.py to read from your CSV file instead of JSON.
-	3.	Run Modified Import Script:
-
-python json_to_vector.py
-
-This will parse the CSV file, generate embeddings, and insert them into the chosen vector database.
+If you want to use a CSV import instead, modify the json_to_vector.py script to handle CSV parsing.
 
 4. Run the Main Script
 
-Initiate the voice-activated test case generation process:
+Start the voice-activated test case generation process with:
 
 python voice_chat_ado_integration_chromadb.py
 
-Voice Chat Mode:
-	•	Start Interaction: Press Enter to speak or type ‘exit’ to quit.
-	•	Voice Commands: Use natural speech to request test case generation, e.g., “Generate synthetic test cases for me for User Story 1-44-329.”
+Voice Commands: Use natural language to request test case generation, e.g.,
+“Generate synthetic test cases for User Story 144329.”
 
 5. Review Logs and Output
-	•	Terminal Output: The system will print raw, formatted, and parsed test case data for verification.
-	•	CSV File: Generated test cases are saved to my_voice_test_cases.csv for easy access and further analysis.
-	•	Logs: Detailed logs are maintained for troubleshooting and audit purposes.
+	•	Terminal: Displays the raw, formatted, and parsed test case data.
+	•	CSV File: Generated test cases are saved to my_voice_test_cases.csv for easy access.
+	•	Logs: Detailed logs help with troubleshooting and tracking.
+
+File Structure
+
+Here’s the current file structure of the project, including tests:
+
+Synthetic_Test_Generation/
+├── README.md
+├── .env.example
+├── requirements.txt
+├── json_to_vector.py
+├── voice_chat_ado_integration_chromadb.py
+├── modules/
+│   ├── ado_integration.py
+│   ├── logger.py
+│   ├── rag_engine_chroma.py
+│   ├── rag_engine_faiss.py
+│   ├── test_case_exporter.py
+│   ├── test_case_formatter.py
+│   ├── user_story_processor.py
+├── utils/
+│   ├── vector_db.py
+│   ├── chromadb/
+│   │   ├── chroma.sqlite3
+│   │   └── metadata/
+├── tests/
+│   ├── test_rag_chroma.py
+│   ├── test_json_to_vector.py
+│   ├── test_voice_integration.py
 
 Example Workflow
-	1.	Start the Script:
+	1.	Export test cases from TestRail as a JSON file and save it as cases.json.
+	2.	Run json_to_vector.py to populate ChromaDB.
+	3.	Start voice_chat_ado_integration_chromadb.py and interact with Calliope using voice commands.
+	4.	Review generated test cases in my_voice_test_cases.csv.
 
-python voice_chat_ado_integration_chromadb.py
+Next Steps
+	•	LangGraph Integration: Enhance memory and state handling for better continuity in conversations.
+	•	CSV Import Support: Streamline support for alternative data sources.
+	•	Performance Optimization: Expand the project’s scalability for even larger datasets.
 
-
-	2.	Interact via Voice:
-	•	Prompt: “Generate synthetic test cases for me for User Story 1-44-329.”
-	•	Response: The system processes the request, fetches the user story from ADO, retrieves relevant past test cases from ChromaDB, and generates new test cases using OpenAI.
-	3.	Verify Output:
-	•	Terminal: Displays the raw GPT-generated test cases, formatted blocks, and parsed data.
-	•	CSV: Check my_voice_test_cases.csv to see the saved test cases with fields like Test Case Number, Title, Description, Steps, and Expected Outcome.
-
-Conclusion
-
-RAG-Powered Test Case Generation is a comprehensive tool that harnesses the capabilities of Retrieval-Augmented Generation to produce high-quality test cases from user stories. By integrating seamlessly with Azure DevOps, offering flexible database options (FAISS and ChromaDB), and incorporating voice activation through ElevenLabs, it provides a scalable and efficient solution for modern QA teams.
-
-MIT License 
-
-Created by Adam Satterfield
+MIT License
+Created by Adam Satterfield with help from o1
